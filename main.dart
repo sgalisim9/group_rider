@@ -14,8 +14,14 @@ const navy = Color(0xFF0B1F44), blue = Color(0xFF1E6CFF), orange = Color(0xFFFF7
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(); // uses android/app/google-services.json
-  runApp(const GroupRiderApp());
+  await Firebase.initializeApp(
+  options: const FirebaseOptions(
+    apiKey: 'YOUR_API_KEY',
+    appId: 'YOUR_APP_ID',
+    messagingSenderId: 'YOUR_PROJECT_NUMBER',
+    projectId: 'YOUR_PROJECT_ID',
+  ),
+);
 }
 
 class GroupRiderApp extends StatelessWidget {
