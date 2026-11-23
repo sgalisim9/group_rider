@@ -7,7 +7,6 @@ jobs:
       - uses: actions/checkout@v4
       - name: Check my app code is in the repository
         run: |
-          ls -la lib || true
           head -n 5 lib/main.dart
           grep -q GroupRiderApp lib/main.dart
           cp lib/main.dart /tmp/main.dart
@@ -25,27 +24,12 @@ jobs:
           sed -i 's#<application#<uses-permission android:name="android.permission.INTERNET"/><uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/><uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/><application#'
           android/app/src/main/AndroidManifest.xml
       - run: flutter pub get
-      - name: Use Maven mirror
-        run: |
-          mkdir -p ~/.gradle/init.d
-          cat > ~/.gradle/init.d/mirror.gradle <<'EOF'
-          def mirror = 'https://maven-central.storage-download.googleapis.com/maven2/'
-          beforeSettings { settings ->
-            settings.pluginManagement.repositories {
-              maven { url mirror }
-            }
-          }
-          beforeProject { project ->
-            project.buildscript.repositories { maven { url mirror } }
-            project.repositories { maven { url mirror } }
-          }
-          EOF
       - name: Build APK (retry on network errors)
         run: |
           for i in 1 2 3 4 5; do
             flutter build apk --release && break
-            echo "Build failed, retrying in 60 seconds..."
-            sleep 60
+            echo "Build failed, retrying in 120 seconds..."
+            sleep 120
           done
           test -f build/app/outputs/flutter-apk/app-release.apk
       - uses: actions/upload-artifact@v4
