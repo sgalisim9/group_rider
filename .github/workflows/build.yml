@@ -5,6 +5,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Check my app code is in the repository
+        run: |
+          ls -la lib || true
+          head -n 5 lib/main.dart
+          grep -q GroupRiderApp lib/main.dart
+          cp lib/main.dart /tmp/main.dart
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
@@ -13,6 +19,8 @@ jobs:
         with:
           channel: stable
       - run: flutter create . --platforms=android --org com.example --project-name group_rider
+      - name: Restore my app code
+        run: cp /tmp/main.dart lib/main.dart
       - run: >
           sed -i 's#<application#<uses-permission android:name="android.permission.INTERNET"/><uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/><uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/><application#'
           android/app/src/main/AndroidManifest.xml
