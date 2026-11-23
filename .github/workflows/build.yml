@@ -17,7 +17,14 @@ jobs:
           sed -i 's#<application#<uses-permission android:name="android.permission.INTERNET"/><uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/><uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/><application#'
           android/app/src/main/AndroidManifest.xml
       - run: flutter pub get
-      - run: flutter build apk --release
+      - name: Build APK (retry on network errors)
+        run: |
+          for i in 1 2 3 4 5; do
+            flutter build apk --release && break
+            echo "Build failed, retrying in 60 seconds..."
+            sleep 60
+          done
+          test -f build/app/outputs/flutter-apk/app-release.apk
       - uses: actions/upload-artifact@v4
         with:
           name: group-rider-apk
