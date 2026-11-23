@@ -16,10 +16,10 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: const FirebaseOptions(
-      apiKey: 'YOUR_API_KEY',
-      appId: 'YOUR_APP_ID',
-      messagingSenderId: 'YOUR_PROJECT_NUMBER',
-      projectId: 'YOUR_PROJECT_ID',
+      apiKey: 'AIzaSyBJpRQmV5SVvHB8NQ0I8zQAg8omH0r0Ob0',
+      appId: '1:196238086585:android:025272ea23208f289f6668',
+      messagingSenderId: '196238086585',
+      projectId: 'group-rider-d8b4c',
     ),
   );
   runApp(const GroupRiderApp());
