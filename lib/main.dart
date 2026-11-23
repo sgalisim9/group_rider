@@ -15,21 +15,20 @@ const navy = Color(0xFF0B1F44), blue = Color(0xFF1E6CFF), orange = Color(0xFFFF7
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-    options: const FirebaseOptions(
-      apiKey: 'AIzaSyBJpRQmV5SVvHB8NQ0I8zQAg8omH0r0Ob0',
-      appId: '1:196238086585:android:025272ea23208f289f6668',
-      messagingSenderId: '196238086585',
-      projectId: 'group-rider-d8b4c',
-    ),
-  );
-  runApp(const GroupRiderApp());
+  options: const FirebaseOptions(
+    apiKey: 'AIzaSyBJpRQmV5SVvHB8NQ0I8zQAg8omH0r0Ob0',
+    appId: '1:196238086585:android:025272ea23208f289f6668',
+    messagingSenderId: '196238086585',
+    projectId: 'group-rider-d8b4c',
+  ),
+);
 }
 
 class GroupRiderApp extends StatelessWidget {
   const GroupRiderApp({super.key});
   ThemeData _theme(Brightness b) => ThemeData(
         useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(seedColor: blue, brightness: b, primary: b == Brightness.light ? navy : blue, secondary: orange),
+        colorScheme: ColorScheme.fromSeed(seedColor: blue, brightness: b, primary: b == Brightness.light ? navy : blue, secondary: orange)
       );
   @override
   Widget build(BuildContext c) => MaterialApp(
@@ -228,11 +227,7 @@ class _GroupPageState extends State<GroupPage> {
 
   Future<void> toggleSharing() async {
     sharing = !sharing;
-    if (!sharing) {
-      await g.collection('locations').doc(me.uid).delete();
-    } else {
-      await push();
-    }
+    if (!sharing) await g.collection('locations').doc(me.uid).delete(); else await push();
     setState(() {});
   }
 
