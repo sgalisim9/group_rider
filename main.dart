@@ -28,8 +28,7 @@ class GroupRiderApp extends StatelessWidget {
   const GroupRiderApp({super.key});
   ThemeData _theme(Brightness b) => ThemeData(
         useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(seedColor: blue, brightness: b, primary: b == Brightness.light ? navy : blue, secondary: orange),
-        cardTheme: CardTheme(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16))),
+        colorScheme: ColorScheme.fromSeed(seedColor: blue, brightness: b, primary: b == Brightness.light ? navy : blue, secondary: orange)
       );
   @override
   Widget build(BuildContext c) => MaterialApp(
